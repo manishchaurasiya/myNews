@@ -27,14 +27,12 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col-md-offset-3 col-md-6">
                 <!-- Form Start -->
-                <?php 
-                if(isset($msg))
-                {
-                  echo "<div class='alert alert-warning alert-dismissible' role='alert'>
+                <?php
+                if (isset($msg)) {
+                    echo "<div class='alert alert-warning alert-dismissible' role='alert'>
                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
                         <strong>{$msg}</strong>
                     </div>";
-
                 }
                 ?>
                 <form action="" method="POST" autocomplete="off">
