@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 if (isset($_POST['submit'])) {
     $category = $_POST['category'];
     $categories = mysqli_query($conn, "SELECT category_name FROM category WHERE category_name='$category'");
-    if ($categories) {
+    if (mysqli_num_rows($categories) > 0) {
         $msg = "category already Exist";
     } else {
         $result = mysqli_query($conn, "INSERT INTO category(category_name) VALUES('$category')");

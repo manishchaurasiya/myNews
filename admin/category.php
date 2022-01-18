@@ -1,4 +1,11 @@
-<?php include "header.php"; ?>
+<?php
+include "header.php";
+include "conn.php";
+if (!isset($_SESSION['username'])) {
+    header('location:index.php');
+}
+$categories = mysqli_query($conn, "SELECT * FROM category");
+?>
 <div id="admin-content">
     <div class="container">
         <div class="row">
@@ -13,53 +20,22 @@
                     <thead>
                         <th>S.No.</th>
                         <th>Category Name</th>
-                        <th>No. of Posts</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class='id'>1</td>
-                            <td>Html</td>
-                            <td>5</td>
-                            <td class='edit'><a href='update-category.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-category.php'><i class='fa fa-trash-o'></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class='id'>2</td>
-                            <td>Css</td>
-                            <td>15</td>
-                            <td class='edit'><a href='update-category.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-category.php'><i class='fa fa-trash-o'></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class='id'>3</td>
-                            <td>Java</td>
-                            <td>8</td>
-                            <td class='edit'><a href='update-category.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-category.php'><i class='fa fa-trash-o'></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class='id'>4</td>
-                            <td>Php</td>
-                            <td>11</td>
-                            <td class='edit'><a href='update-category.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-category.php'><i class='fa fa-trash-o'></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class='id'>5</td>
-                            <td>Python</td>
-                            <td>13</td>
-                            <td class='edit'><a href='update-category.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-category.php'><i class='fa fa-trash-o'></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class='id'>6</td>
-                            <td>Scss</td>
-                            <td>3</td>
-                            <td class='edit'><a href='update-category.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-category.php'><i class='fa fa-trash-o'></i></a></td>
-                        </tr>
+                    <?php
+                        $serialNumber = 0;
+                        while ($rows = mysqli_fetch_assoc($categories)) {
+                            $serialNumber++;
+                            echo " <tr>
+                                            <td class='id'>$serialNumber</td>
+                                            <td style='text-align:center'>$rows[category_name]</td>
+                                            <td class='edit'><a href='update-category.php?id=$rows[category_id]'><i class='fa fa-edit'></i></a></td>
+                                            <td class='delete'><a href='delete-category.php?id=$rows[category_id]'><i class='fa fa-trash-o'></i></a></td>
+                                        </tr>";
+                        }
+                        ?>
                     </tbody>
                 </table>
                 <ul class='pagination admin-pagination'>
