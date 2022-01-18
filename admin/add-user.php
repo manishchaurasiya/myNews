@@ -8,10 +8,10 @@ $roles = mysqli_query($conn, "SELECT * FROM roles");
 if (isset($_POST['save'])) {
     $check = mysqli_query($conn, "SELECT email FROM user WHERE email = '$_POST[email]'");
     if (mysqli_num_rows($check) > 0) {
-        print_r($check);
         $msg = "User already Exist";
     } else {
         $result = mysqli_query($conn, "INSERT INTO user(first_name,last_name,email,password,role) VALUES('$_POST[fname]','$_POST[lname]','$_POST[email]','$_POST[password]','$_POST[role]')");
+        $msg = "User inserted successfully!";
         if (!$result) {
             echo mysqli_error($conn);
         }
@@ -26,6 +26,7 @@ if (isset($_POST['save'])) {
             </div>
             <div class="col-md-offset-3 col-md-6">
                 <!-- Form Start -->
+                
                 <?php
                 if (isset($msg)) {
                     echo "<div class='alert alert-warning alert-dismissible' role='alert'>
