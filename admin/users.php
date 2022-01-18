@@ -1,4 +1,12 @@
-<?php include "header.php"; ?>
+<?php
+include "header.php";
+include "conn.php";
+if (!isset($_SESSION['username'])) {
+    header('location:index.php');
+}
+$users = mysqli_query($conn, "SELECT * FROM user Where role=0 ");
+
+ ?>
   <div id="admin-content">
       <div class="container">
           <div class="row">
@@ -13,44 +21,28 @@
                       <thead>
                           <th>S.No.</th>
                           <th>Full Name</th>
-                          <th>User Name</th>
+                          <th>Email</th>
                           <th>Role</th>
                           <th>Edit</th>
                           <th>Delete</th>
                       </thead>
                       <tbody>
-                          <tr>
-                              <td class='id'>1</td>
-                              <td>Ram Sharma</td>
-                              <td>ram</td>
-                              <td>admin</td>
-                              <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                              <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                          </tr>
-                          <tr>
-                              <td class='id'>2</td>
-                              <td>Shyam Kumar</td>
-                              <td>shyam</td>
-                              <td>normal</td>
-                              <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                              <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                          </tr>
-                          <tr>
-                              <td class='id'>3</td>
-                              <td>Ramesh Kumar</td>
-                              <td>ramesh</td>
-                              <td>admin</td>
-                              <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                              <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                          </tr>
-                          <tr>
-                              <td class='id'>4</td>
-                              <td>Satish Sharma</td>
-                              <td>satish</td>
-                              <td>admin</td>
-                              <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                              <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                          </tr>
+                      <?php 
+                      $serialNumber =0;
+                              while($row = mysqli_fetch_assoc($users))
+                              {
+                                  $serialNumber++;
+                                echo " <tr>
+                                            <td class='id'>$serialNumber</td>
+                                            <td>$row[first_name] $row[last_name]</td>
+                                            <td>$row[email]</td>
+                                            <td>$row[role]</td>
+                                            <td class='edit'><a href='update-user.php?id=$row[user_id]'><i class='fa fa-edit'></i></a></td>
+                                            <td class='delete'><a href='delete-user.php?id=$row[user_id]'><i class='fa fa-trash-o'></i></a></td>
+                                        </tr>";
+                              }
+                              ?>
+                         
                       </tbody>
                   </table>
                   <ul class='pagination admin-pagination'>
@@ -62,4 +54,4 @@
           </div>
       </div>
   </div>
-<?php include "header.php"; ?>
+<?php include "footer.php"; ?>
