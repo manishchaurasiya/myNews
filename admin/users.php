@@ -4,7 +4,7 @@ include "conn.php";
 if (!isset($_SESSION['username'])) {
     header('location:index.php');
 }
-$usersdata =mysqli_query($conn, "SELECT user.*, roles.role from user ,roles where user.role=roles.id and user.role=2 ");
+$usersdata = mysqli_query($conn, "SELECT user.*, roles.role from user ,roles where user.role=roles.id and user.role=2 ");
 
 ?>
 <div id="admin-content">
