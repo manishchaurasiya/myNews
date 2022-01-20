@@ -1,4 +1,12 @@
-<?php include "header.php"; ?>
+<?php include "header.php";
+include "conn.php";
+if (!isset($_SESSION['username'])) {
+    header('location:index.php');
+}
+$postData = mysqli_query($conn, "SELECT * from post WHERE post_id='$_GET[id]'");
+$row = mysqli_fetch_assoc($postData);
+$categories = mysqli_query($conn,"SELECT * FROM category");
+?>
 <div id="admin-content">
   <div class="container">
   <div class="row">
@@ -13,27 +21,33 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputTile">Title</label>
-                <input type="text" name="post_title"  class="form-control" id="exampleInputUsername" value="Lorem ipsum dolor sit amet">
+                <input type="text" name="post_title"  class="form-control" id="exampleInputUsername" value="<?php echo $row['title']?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1"> Description</label>
                 <textarea name="postdesc" class="form-control"  required rows="5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                <?php echo $row['description']?>
                 </textarea>
             </div>
             <div class="form-group">
                 <label for="exampleInputCategory">Category</label>
                 <select class="form-control" name="category">
-                    <option value="">Html</option>
-                    <option value="">Css</option>
-                    <option value="">javascript</option>
-                    <option value="">Python</option>
+                    <option value="">Select category</option>
+                    <?php
+                            while ($rows = mysqli_fetch_assoc($categories)) {
+                                if ($rows['category_id'] == $row['category']) {
+                                    echo "<option value='$rows[id]' selected> $rows[category_name]</option>";
+                                } else {
+                                    echo "<option value='$rows[id]'> $rows[category_name]</option>";
+                                }
+                            }
+                            ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="">Post image</label>
                 <input type="file" name="new-image">
-                <img  src="upload/post_1.jpg" height="150px">
+                <img  src="upload/<?php echo $row['post_img']?>" height="150px">
                 <input type="hidden" name="old-image" value="">
             </div>
             <input type="submit" name="submit" class="btn btn-primary" value="Update" />
