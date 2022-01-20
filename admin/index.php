@@ -7,7 +7,7 @@ if (isset($_POST['login'])) {
 
     $result = mysqli_query($conn, "SELECT * FROM user WHERE email='$username' && password ='$password'");
     if (mysqli_num_rows($result) > 0) {
-        $_SESSION['username'] = $username; 
+        $_SESSION['username'] = $username;
         header("location:post.php");
     } else {
         echo mysqli_error($conn);
