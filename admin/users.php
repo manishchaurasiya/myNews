@@ -4,7 +4,7 @@ include "conn.php";
 if (!isset($_SESSION['username'])) {
     header('location:index.php');
 }
-$users = mysqli_query($conn, "SELECT * FROM user Where role=2 ");
+$usersdata =mysqli_query($conn, "SELECT user.*, roles.role from user ,roles where user.role=roles.id and user.role=2 ");
 
 ?>
 <div id="admin-content">
@@ -29,7 +29,7 @@ $users = mysqli_query($conn, "SELECT * FROM user Where role=2 ");
                     <tbody>
                         <?php
                         $serialNumber = 0;
-                        while ($row = mysqli_fetch_assoc($users)) {
+                        while ($row = mysqli_fetch_assoc($usersdata)) {
                             $serialNumber++;
                             echo " <tr>
                                             <td class='id'>$serialNumber</td>
