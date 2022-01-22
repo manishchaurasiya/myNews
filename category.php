@@ -2,8 +2,8 @@
 include 'header.php';
 include "admin/conn.php";
 $postdatas = mysqli_query($conn, "SELECT post.*,user.first_name,user.last_name,category.category_name from post,user,category where post.author=user.user_id and post.category=category.category_id and category = '$_GET[id]'");
-
-
+$categories = mysqli_query($conn,"SELECT category_name FROM category WHERE category_id='$_GET[id]'"); 
+$category = mysqli_fetch_assoc($categories);
 ?>
     <div id="main-content">
       <div class="container">
@@ -11,7 +11,7 @@ $postdatas = mysqli_query($conn, "SELECT post.*,user.first_name,user.last_name,c
             <div class="col-md-8">
                 <!-- post-container -->
                 <div class="post-container">
-                  <h2 class="page-heading"></h2>
+                  <h2 class="page-heading"><?php echo $category['category_name'] ?></h2>
                   <?php
                     while($row = mysqli_fetch_assoc($postdatas))
                     {?>

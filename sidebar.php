@@ -1,17 +1,17 @@
 <?php
 include('admin/conn.php');
-$data = mysqli_query($conn, "SELECT post.*,user.first_name,user.last_name,category.category_name from post,user,category where post.author=user.user_id and post.category=category.category_id order by post.post_date DESC");
+$data = mysqli_query($conn, "SELECT post.*,user.first_name,user.last_name,category.category_name from post,user,category where post.author=user.user_id and post.category=category.category_id order by post.post_date DESC LIMIT 5");
 
 ?>
 <div id="sidebar" class="col-md-4">
     <!-- search box -->
     <div class="search-box-container">
         <h4>Search</h4>
-        <form class="search-post" action="search.php" method="GET">
+        <form class="search-post" action="search.php" method="POST" autocomplete="off">
             <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Search .....">
+                <input type="text" name="search_data" class="form-control" placeholder="Search ....." required>
                 <span class="input-group-btn">
-                    <button type="submit" class="btn btn-danger">Search</button>
+                    <input type="submit" class="btn btn-danger" style="color:white;" name="search" value="SEARCH">
                 </span>
             </div>
         </form>
