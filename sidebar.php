@@ -24,19 +24,19 @@ $data = mysqli_query($conn, "SELECT post.*,user.first_name,user.last_name,catego
         while ($recentPosts = mysqli_fetch_assoc($data)) { ?>
             <div class="recent-post">
                 <a class="post-img" href="">
-                    <img src="admin/upload/<?php echo $recentPosts['post_img']?>" alt="" />
+                    <img src="admin/upload/<?php echo $recentPosts['post_img'] ?>" alt="" />
                 </a>
                 <div class="post-content">
-                    <h5><a href='single.php?id=<?php echo $recentPosts['post_id']?>'><?php echo $recentPosts['title']?></a></h5>
+                    <h5><a href='single.php?id=<?php echo $recentPosts['post_id'] ?>'><?php echo $recentPosts['title'] ?></a></h5>
                     <span>
                         <i class="fa fa-tags" aria-hidden="true"></i>
-                        <a href="category.php?id=<?php echo $recentPosts['category']?>"><?php echo $recentPosts['category_name']?></a>
+                        <a href="category.php?id=<?php echo $recentPosts['category'] ?>"><?php echo $recentPosts['category_name'] ?></a>
                     </span>
                     <span>
                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                        <?php echo $recentPosts['post_date']?>
+                        <?php echo $recentPosts['post_date'] ?>
                     </span>
-                    <a class='read-more' href='single.php?id=<?php echo $recentPosts['post_id']?>'>read more</a>
+                    <a class='read-more' href='single.php?id=<?php echo $recentPosts['post_id'] ?>'>read more</a>
                 </div>
             </div>
         <?php

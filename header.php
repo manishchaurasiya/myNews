@@ -1,3 +1,8 @@
+<?php
+include "admin/conn.php";
+$categories = mysqli_query($conn, "SELECT * FROM category");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,10 +40,12 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class='menu'>
-                    <li><a href='category.php'>Business</a></li>
-                    <li><a href='category.php'>Entertainment</a></li>
-                    <li><a href='category.php'>Sports</a></li>
-                    <li><a href='category.php'>Politics</a></li>
+                <?php   
+                    while($category = mysqli_fetch_assoc($categories))
+                    {
+                       echo "<li><a href='category.php?id=$category[category_id]'>$category[category_name]</a></li>";
+                    }
+                ?> 
                 </ul>
             </div>
         </div>
