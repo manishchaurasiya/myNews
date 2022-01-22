@@ -1,4 +1,9 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php'; 
+include('admin/conn.php');
+$posts = mysqli_query($conn, "SELECT post.*,user.first_name,user.last_name,category.category_name from post,user,category where post.author=user.user_id and post.category=category.category_id and post_id = '$_GET[id]'");
+$data = mysqli_fetch_assoc($posts);
+
+?>
     <div id="main-content">
         <div class="container">
             <div class="row">
@@ -6,24 +11,24 @@
                   <!-- post-container -->
                     <div class="post-container">
                         <div class="post-content single-post">
-                            <h3>Lorem ipsum dolor sit amet, consectetur</h3>
+                            <h3><?php echo $data['title']; ?></h3>
                             <div class="post-information">
                                 <span>
                                     <i class="fa fa-tags" aria-hidden="true"></i>
-                                    Html
+                                    <?php echo $data['category_name']; ?>
                                 </span>
                                 <span>
                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                    <a href='author.php'>Admin</a>
+                                    <a href="author.php?id=<?php echo $data['author']?>"><?php echo $data['first_name']?></a>
                                 </span>
                                 <span>
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    01 Nov, 2019
+                                    <?php echo $data['post_date']?>
                                 </span>
                             </div>
-                            <img class="single-feature-image" src="images/post_1.jpg" alt=""/>
+                            <img  class="single-feature-image" src="admin/upload/<?php echo $data['post_img']?>">
                             <p class="description">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                               <?php echo $data['description']?>
                             </p>
                         </div>
                     </div>
