@@ -27,7 +27,7 @@ $categories = mysqli_query($conn, "SELECT * FROM category");
         <div class="row">
             <!-- LOGO -->
             <div class=" col-md-offset-4 col-md-4">
-                <a href="index.php" id="logo"><img src="images/news.jpg"></a>
+                <a href="index.php" id="logo"><img src="images/mynews.svg"></a>
             </div>
             <!-- /LOGO -->
         </div>

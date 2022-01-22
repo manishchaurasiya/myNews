@@ -10,6 +10,7 @@ if (isset($_POST['login'])) {
         $_SESSION['username'] = $username;
         header("location:post.php");
     } else {
+        $msg = "Username or Password not matched";
         echo mysqli_error($conn);
     }
 }
@@ -34,10 +35,18 @@ if (isset($_POST['login'])) {
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-4 col-md-4">
-                    <img class="logo" src="images/news.jpg">
-                    <h3 class="heading">Admin</h3>
+                    <img class="logo" src="images/mynews.svg">
+
                     <!-- Form Start -->
-                    <form action="" method="POST">
+                    <?php
+                    if (isset($msg)) {
+                        echo "<div class='alert alert-warning alert-dismissible' role='alert'>
+                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+                        <strong>{$msg}</strong>
+                    </div>";
+                    }
+                    ?>
+                    <form action="" method="POST" style="margin-top: 15px;">
                         <div class="form-group">
                             <label>Username</label>
                             <input type="text" name="username" class="form-control" placeholder="" required>
