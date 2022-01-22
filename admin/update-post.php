@@ -5,6 +5,7 @@ if (!isset($_SESSION['username'])) {
 }
 $old_img = '';
 $new_image = "";
+$postUpdateDate = date("d-m-Y");
 if (isset($_POST['submit'])) {
     $title = mysqli_real_escape_string($conn, $_POST['post_title']);
     $postdesc = mysqli_real_escape_string($conn, $_POST['postdesc']);
@@ -14,7 +15,7 @@ if (isset($_POST['submit'])) {
     $new_image = mysqli_real_escape_string($conn, $_FILES['new_image']['name']);
     $movefilestatus = move_uploaded_file($_FILES['new_image']['tmp_name'], "upload/" . $_FILES['new_image']['name']);
     if ($_FILES['new_image']['name'] == "") {
-        $update = mysqli_query($conn, "UPDATE post SET title='$title', description='$postdesc', category='$category', post_img='$old_img' WHERE post_id='$_GET[id]'");
+        $update = mysqli_query($conn, "UPDATE post SET title='$title', description='$postdesc', category='$category', post_img='$old_img', updated_at='$postUpdateDate' WHERE post_id='$_GET[id]'");
         if ($update) {
             $msg = "Post uploaded seccessfully!";
         } else {
@@ -22,7 +23,7 @@ if (isset($_POST['submit'])) {
         }
     }
     if ($movefilestatus  && $_FILES['new_image']['name'] !="") {
-        $update = mysqli_query($conn, "UPDATE post SET title='$title', description='$postdesc', category='$category', post_img='$new_image' WHERE post_id='$_GET[id]'");
+        $update = mysqli_query($conn, "UPDATE post SET title='$title', description='$postdesc', category='$category', post_img='$new_image', updated_at='$postUpdateDate' WHERE post_id='$_GET[id]'");
         if ($update) {
             $msg = "Post uploaded seccessfully!";
         } else {
